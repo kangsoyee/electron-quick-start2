@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 const autoUpdater = require('electron-updater').autoUpdater
-autoUpdater.setFeedURL('https://bitbucket.org/ohjicin/ohjic-desktop-client.git')
+autoUpdater.setFeedURL('git@bitbucket.org:ohjicin/ohjic-desktop-client.git')
 
 const path = require('path')
 const url = require('url')

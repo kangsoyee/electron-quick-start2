@@ -6,7 +6,10 @@
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/ohjicin/ohjic-desktop-client.git"
+  },
   "keywords": [
     "Electron",
     "quick",
