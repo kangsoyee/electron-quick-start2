@@ -1,6 +1,10 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
+const autoUpdater = require('electron-updater').autoUpdater
+autoUpdater.setFeedURL('https://bitbucket.org/ohjicin/ohjic-desktop-client.git')
+
 const path = require('path')
+const url = require('url')
 
 function createWindow () {
   // Create the browser window.
@@ -12,16 +16,14 @@ function createWindow () {
 //    }
   })
   var mac_address;
-var macaddress = require('macaddress');
-    macaddress.one(function (err, mac) {
-        console.log(mac);
-        
-    mac_address = mac.toString();
-        console.log(mac_address);
-    mainWindow.loadURL('http://fin.qfun.kr/index/intro/6/'+mac) 
+  var macaddress = require('macaddress');
+  macaddress.one(function (err, mac) {
+    console.log(mac);
+
+    mainWindow.loadURL('http://fin.qfun.kr/index/intro/6/'+mac)
     //mainWindow.loadURL('http://fin.qfun.kr/deposit/sms/'+mac)
-});
-    
+  });
+
   // and load the index.html of the app.
   //mainWindow.loadFile('index.html')
   //mainWindow.loadURL('http://fin.qfun.kr/deposit/sms/'+mac_address)
@@ -52,3 +54,33 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+
+autoUpdater.on('update-available', function () {
+  console.log('A new update is available')
+  contents.send('updater-message', 'A new update is available')
+})
+autoUpdater.on('checking-for-update', function () {
+  console.log('Checking-for-update')
+  contents.send('updater-message', 'Checking for Update..')
+})
+autoUpdater.on('error', function (error) {
+  console.log('error')
+  console.error(error)
+  contents.send('updater-message', 'Got Error')
+})
+autoUpdater.on('download-progress', function (bytesPerSecond, percent, total, transferred) {
+  console.log(`${bytesPerSecond}, ${percent}, ${total}, ${transferred}`)
+  contents.send('updater-message', `download progress : ${bytesPerSecond}, ${percent}, ${total}, ${transferred}`)
+})
+autoUpdater.on('update-downloaded', function (event) {
+  console.log('update-downloaded')
+  console.log(event)
+  contents.send('updater-message', 'update-downloaded')
+})
+
+autoUpdater.on('update-not-available', function () {
+  console.log('update-not-available')
+  contents.send('updater-message', 'update-not-available')
+})
