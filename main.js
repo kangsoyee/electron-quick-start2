@@ -21,7 +21,7 @@ function createWindow () {
   macaddress.one(function (err, mac) {
     console.log(mac);
 
-    mainWindow.loadURL('http://fin.qfun.kr/index/intro/6/'+mac)
+    mainWindow.loadURL('http://fin.qfun.kr/index/intro/6/update_test')
     //mainWindow.loadURL('http://fin.qfun.kr/deposit/sms/'+mac)
   });
 
